@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="description" content="This is a meetings page">
+	<meta property="og:description" content="This is a meetings page">
+	<meta property="og:title" content="Meetings">
+	<link rel="shortcut icon" href="https://cdn3.iconfinder.com/data/icons/finance1-line/64/finance-_Line_-_2px-45-512.png">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{url_for('static', filename='styleSheet.css')}}">
+	<script src="{{url_for('static', filename='script.js')}}"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+	<title>Meetings</title>
+</head>
+
+<body>
+	<!--Navigation Bar-->
+	<nav class="navbar navbar-expand-md navbar-light" id="nav1">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href='index'>Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href='meeting'>Meetings</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href='signup'>Sign-up</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href='login'>Login</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" onClick="return Validation2()" href='logout'>Logout</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<br />
+	<br />
+	<br />
+	<br />
+	<table id="meetings">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Title</th>
+				<th>Minute Taker</th>
+				<th>Topic</th>
+				<th>Atendees</th>
+				<th>Raised by</th>
+				<th>Actions required</th>
+				<th>To be actioned by</th>
+				<th>Notes</th>
+				<th>Date</th>
+				<th>Start Time</th>
+				<th>End Time</th>
+			</tr>
+		</thead>
+		{% for item in items %}
+		<tr>
+		<td>{{item[0]}}</td>
+		<td>{{item[1]}}</td>
+		<td>{{item[2]}}</td>
+		<td>{{item[3]}}</td>
+		<td>{{item[4]}}</td>
+		<td>{{item[5]}}</td>
+		<td>{{item[6]}}</td>
+		<td>{{item[7]}}</td>
+		<td>{{item[8]}}</td>
+		<td>{{item[9]}}</td>
+		<td>{{item[10]}}</td>
+		<td>{{item[11]}}</td>
+		<td>
+			<form action="{{url_for('delete', meeting_id=item[0])}}">
+				<input type="submit" value="delete" onClick="return rowDeleted()"/>
+			</form>
+        </tr>
+		{% endfor %}
+	</table>
+
+	<div class="col-lg-12 col-md-6 col-sm-6 col-xs-12" style="text-align: center;">
+		<br />
+		<input type="submit" name="submit" class="btn btn-primary btn-lg m-l-15 waves-effect " value="New meeting" id="mtnbtn" onClick="return showMeeting()">
+	</div>
+	<section>
+		<div class="container-fluid" style="display: none;" id="meeting">
+			<div class="row clearfix">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="card">
+						<div class="header">
+							<br>
+							<h2 style="text-align: center;">
+								Add meeting
+							</h2>
+							<br>
+
+						</div>
+						<div class="body">
+							<form method="post" enctype="multipart/form-data">
+								<div class="row clearfix">
+
+									<div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+										<div class="form-group form-float">
+											<div class="form-line">
+												<label class="form-label">Title</label>
+												<input required type="text" name="title" class="form-control">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+										<div class="form-group form-float">
+											<div class="form-line">
+												<label class="form-label">Minute taker</label>
+												<input required type="text" name="taker" class="form-control">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+										<div class="form-group form-float">
+											<div class="form-line">
+												<label class="form-label">Topic</label>
+												<input required type="text" name="topic" class="form-control">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+										<div class="form-group form-float">
+											<div class="form-line">
+												<label class="form-label">Absentees</label>
+												<input required type="text" name="atendees" class="form-control">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+										<div class="form-group form-float">
+											<div class="form-line">
+												<label class="form-label">Raised by</label>
+												<input required type="text" name="raisedby" class="form-control">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+										<div class="form-group form-float">
+											<div class="form-line">
+												<label class="form-label">Actions required</label>
+												<input required type="text" name="actionsrequired" class="form-control">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+										<div class="form-group form-float">
+											<div class="form-line">
+												<label class="form-label">To be actioned by</label>
+												<input required type="text" name="tobeactioned" class="form-control">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+										<div class="form-group form-float">
+											<div class="form-line">
+												<label class="form-label">Notes</label>
+												<input required type="text" name="notes" class="form-control">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+										<div class="form-group form-float">
+											<div class="form-line">
+												<label for="dates">Date</label>
+												<input type="date" required id="date" name="dates" class="form-control">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+										<div class="form-group form-float">
+											<div class="form-line">
+												<label for="starttime">Start Time</label>
+												<input type="time" required id="time" name="starttime" class="form-control">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+										<div class="form-group form-float">
+											<div class="form-line">
+												<label for="endtime">End Time</label>
+												<input type="time" required id="time" name="endtime" class="form-control">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-12 col-md-6 col-sm-6 col-xs-12" style="text-align: center;">
+										<br />
+										<input type="submit" name="submit" class="btn btn-primary btn-lg m-l-15 waves-effect" value="Submit" onsubmit="return submitted()">
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+	<script type="text/javascript">
+
+		function Validation2() {
+			alert('User logged out');
+			return true
+		}
+		function showMeeting() {
+			meeting.style.display = "block";
+			mtnbtn.style.display = "none";
+			meetings.style.display = "none";
+			return true
+		}
+		function submitted() {
+			meeting.style.display = "none";
+			mtnbtn.style.display = "none";
+			meetings.style.display = "block";
+			return true
+		}
+        function rowDeleted() {
+			alert('Meeting deleted!');
+            return true
+        }
+	</script>
+</body>
+</html>
