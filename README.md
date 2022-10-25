@@ -1,8 +1,15 @@
 # minute_taker
 Methods for submitting and deleting data to/from a database. Sign-up/Log-in and Log-out included
 
-# Warning
-Please download LibreOffice Writer to open POW_Minute_Taker.odt, otherwise you won't be able to open embeded documents. Or access them directly from the Documentation folder.
+# What's included in this flask website
+
+User management using Python's Login Manager and SQL Database
+
+Content protected by user sessions
+
+User password secured by password_hash (to prevent database leaks)
+
+Email and password validation
 
 # Code requirements
 #1 - Visual Studio 2022
